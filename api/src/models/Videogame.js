@@ -29,13 +29,19 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL(10, 2),
     },
 
-    plataforms: {
+    platforms: {
       type: DataTypes.STRING,
       allowNull: false,
     },
 
     image: {
       type: DataTypes.STRING,
+    },
+
+    createdInDb: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
     },
   });
 };
