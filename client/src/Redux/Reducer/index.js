@@ -12,7 +12,8 @@ import {
 
 const initialState = {
   fullGames: [],
-  Games: [],
+  games: [],
+  genres: [],
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -22,6 +23,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         games: payload,
         fullGames: payload,
+      };
+
+    case GET_GENRES:
+      return {
+        ...state,
+        genres: payload,
       };
 
     default:
