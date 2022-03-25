@@ -6,7 +6,7 @@ function Landing() {
     <div>
       <div>
         <h1>Welcome to my VIDEOGAMES APP</h1>
-        <NavLink to="/app/home">
+        <NavLink to="/home">
           <button>Home</button>
         </NavLink>
       </div>

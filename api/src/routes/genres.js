@@ -36,7 +36,7 @@ router.get("/", async (req, res) => {
   genres = await Genre.findAll();
 
   console.log("Genres metidos a base de datos y enviados");
-  return res.json(genres);
+  return res.send(genres);
 });
 
 module.exports = router;
