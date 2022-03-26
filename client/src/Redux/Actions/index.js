@@ -41,7 +41,9 @@ export function getDetail(id) {
   if (id) {
     return async function (dispatch) {
       try {
-        let response = await axios.get(`http://localhost:3001/videogame/${id}`);
+        let response = await axios.get(
+          `http://localhost:3001/videogames/${id}`
+        );
         return dispatch({
           type: SEARCH_BY_ID,
           payload: response.data,
@@ -51,6 +53,10 @@ export function getDetail(id) {
       }
     };
   }
+  return {
+    type: SEARCH_BY_ID,
+    payload: [],
+  };
 }
 
 export function getByName(name) {

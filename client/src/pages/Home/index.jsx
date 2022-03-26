@@ -22,7 +22,7 @@ export default function Home() {
   const fullGames = useSelector((state) => state.games);
   const [order, setOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [gamesPerPage, setGamePerPage] = useState(15);
+  const [gamesPerPage, setGamesPerPage] = useState(15);
   const indexOfLastGame = currentPage * gamesPerPage; //15
   const indexOfFirstGame = indexOfLastGame - gamesPerPage; // 0
 
@@ -81,12 +81,10 @@ export default function Home() {
           <div>
             <label>Filtrar Alfabeticamente</label>
             <select
-              defaultValue="Select"
               onChange={(e) => {
                 handleSortName(e);
               }}
             >
-              <option>Select</option>
               <option value="asc">Ascendente</option>
               <option value="desc">Descendente</option>
             </select>
@@ -121,8 +119,7 @@ export default function Home() {
 
           <div>
             <label>Filtrar por Generos</label>
-            <select defaultValue="Select" onChange={handleFilterGenres}>
-              <option>Select</option>
+            <select onChange={handleFilterGenres}>
               <option value="Action">Action</option>
               <option value="Indie">Indie</option>
               <option value="Strategy">Strategy</option>
@@ -160,6 +157,7 @@ export default function Home() {
               <div key={el.id}>
                 <Card
                   key={el.id}
+                  id={el.id}
                   name={el.name}
                   image={el.image}
                   rating={el.rating}

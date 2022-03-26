@@ -1,52 +1,66 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { postGame, getGenres } from "../../Redux/Actions";
 import { useDispatch, useSelector } from "react-redux";
 
+//formulario validad con Javascript, sistema de errores
 function validate(input) {
   let errors = {};
   if (!input.name) {
-    errors.name = "Se requiere un Nombre!";
-  } else if (!input.description) {
-    errors.description = "Description debe ser completado!";
-  } else if (!input.released) {
-    errors.released = "Released no pude estar vacío!";
-  } else if (
-    input.rating === 0 ||
-    input.rating === "" ||
-    input.rating < 1 ||
-    input.rating > 5
-  ) {
+    errors.name = "Se requiere un nombre!";
+  }
+  if (!input.description) {
+    errors.description = "Se debe agregar una descripción!";
+  }
+  // if (!input.image) {
+  //   errors.img = "Agregar Link para la imagen!";
+  // }
+  if (!input.released) {
+    errors.release = "Agregar fecha de lanzamiento";
+  }
+  if (!input.rating || input.rating > 5 || input.rating < 1) {
     errors.rating =
       "Rating tiene que ser completado y su valor debe ser entre 1 y 5!";
   }
   return errors;
 }
-export default function VgameCreate() {
-  const dispatch = useDispatch();
-  const genres = useSelector((state) => state.genres);
-  //console.log(genres, 'soy genres')
-  const platforms = useSelector((state) => state.platforms);
-  //console.log(platforms, 'soy platforms')
-  const history = useHistory();
-  const [errors, setErrors] = useState({});
 
+//creo la funcion Creadora de VideoJuegos
+export default function Create() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const genres = useSelector((state) => state.genres);
+  const videogames = useSelector((state) => state.games);
+
+  //estado local de Errores e Inputs (objetos)
+  const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
     name: "",
     description: "",
-    releaseDate: "",
+    image: "",
+    released: "",
     rating: "",
-    genres: [],
     platforms: [],
-    background_image: "",
+    genres: [],
   });
 
+  // Me traigo las plataformas como si fuera una action
+  const getPlatforms = function () {
+    let aux = videogames;
+    let aux2 = aux.map((e) => e.platforms).flat(5);
+    let aux3 = new Set(aux2);
+    let plat = [...aux3];
+    return plat;
+  };
+  const platform = getPlatforms();
+
+  //---------------------------------------------
+  //--------------HANDLES------------------------
   function handleChange(e) {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
-    console.log(input);
 
     setErrors(
       validate({
@@ -54,39 +68,42 @@ export default function VgameCreate() {
         [e.target.name]: e.target.value,
       })
     );
+    console.log(input);
   }
-  function handlePlatSelect(e) {
-    setInput({
-      ...input,
-      platforms: [...input.platforms, e.target.value],
-    });
-  }
-  function handleGenSelect(e) {
+
+  function handleGenre(e) {
     setInput({
       ...input,
       genres: [...input.genres, e.target.value],
     });
   }
-  function handleSubmit(e) {
-    e.preventDefault();
-    setErrors(
-      validate({
-        ...input,
-        [e.target.name]: e.target.valude,
-      })
-    );
-    dispatch(postGame(input));
-    alert("Videojuego Creado!!");
+
+  function handlePlataforms(e) {
     setInput({
-      name: "",
-      description: "",
-      releaseDate: "",
-      rating: "",
-      genres: [],
-      platforms: [],
-      image: "",
+      ...input,
+      platforms: [...input.platforms, e.target.value],
     });
-    history.push("./home");
+  }
+
+  function handleSubmit(e) {
+    if (!errors.name && !errors.description && !errors.platforms) {
+      e.preventDefault();
+      dispatch(postGame(input));
+      alert("Videojuego Creado!!");
+      setInput({
+        name: "",
+        description: "",
+        img: "",
+        released: "",
+        rating: "",
+        platforms: [],
+        genres: [],
+      });
+      navigate("/home");
+    } else {
+      e.preventDefault();
+      alert("Formulario incompleto");
+    }
   }
 
   function handleDelete(el) {
@@ -104,110 +121,108 @@ export default function VgameCreate() {
   return (
     <div>
       <Link to="/home">
-        <br />
-        <button className="bot-vgame">Volver</button>
+        <button>Back</button>
       </Link>
-      <h1 className="title-create">Creá tu Propio Videojuego!</h1>
-      <form className="form-create" onSubmit={(e) => handleSubmit(e)}>
-        <div>
-          <label>Nombre:</label>
-          <input
-            type="text"
-            value={input.name}
-            name="name"
-            onChange={(e) => handleChange(e)}
-          />
-          {errors.name && <p className="error">{errors.name}</p>}
-        </div>
-        <div>
-          <label>Description:</label>
-          <input
-            type="text"
-            value={input.description}
-            name="description"
-            onChange={(e) => handleChange(e)}
-          />
-          {errors.description && <p className="error">{errors.description}</p>}
-        </div>
-        <div>
-          <label>Released:</label>
-          <input
-            type="date"
-            value={input.releaseDate}
-            name="releaseDate"
-            onChange={(e) => handleChange(e)}
-          />
-          {errors.releaseDate && (
-            <p className="error" color="red">
-              {errors.releaseDate}
-            </p>
-          )}
-        </div>
-        <div>
-          <label>Imagen:</label>
-          <input
-            type="text"
-            value={input.background_image}
-            name="background_image"
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
-        <div>
-          <label>Rating:</label>
-          <input
-            type="number"
-            value={input.rating}
-            name="rating"
-            onChange={(e) => handleChange(e)}
-          />
-          {errors.rating && (
-            <p className="error" color="red">
-              {errors.rating}
-            </p>
-          )}
-        </div>
-        <label>Género:</label>
-        <div className="img">
-          <select onChange={(e) => handleGenSelect(e)}>
-            {genres.map((gen) => (
-              <option value={gen.name}>{gen.name}</option>
-            ))}
-          </select>
-        </div>
-        <li>{input.genres.map((el) => el).join(" - ")}</li>
-        <label> Plataforma:</label>
-        <div className="img">
-          <select onChange={(e) => handlePlatSelect(e)}>
-            {platforms.map((plat) => (
-              <option value={plat.name}>{plat.name}</option>
-            ))}
-          </select>
-        </div>
-        <li>{input.platforms.map((el) => el).join(" - ")}</li>
-        <br />
-        <br />
-        <div className="img">
-          <button type="submit">Crear Videojuego</button>
-        </div>
-      </form>
-      <br />
-      <br />
-      <div className="form-create">
-        <h2 className="remove-genres-platforms">Remove Platforms:</h2>
-        {input.platforms.map((el) => (
+      <div>
+        <h1>Create New Videogame</h1>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <div>
-            <button onClick={() => handleDelete(el)}>X</button>
-            <p> {el}</p>
+            <div>
+              <div>
+                <label>Name </label>
+                <input
+                  type="text"
+                  value={input.name}
+                  name="name"
+                  onChange={handleChange}
+                />
+                {errors.name && <p>{errors.name}</p>}
+              </div>
+              <div>
+                <label>Description </label>
+                <input
+                  type="text"
+                  value={input.description}
+                  name="description"
+                  onChange={handleChange}
+                />
+                {errors.description && <p>{errors.description}</p>}
+              </div>
+              <div>
+                <label>Image </label>
+                <input
+                  type="text"
+                  value={input.img}
+                  name="image"
+                  onChange={handleChange}
+                />
+                {errors.img && <p>{errors.img}</p>}
+              </div>
+              <div>
+                <label>Release Date </label>
+                <input
+                  type="date"
+                  value={input.released}
+                  name="released"
+                  onChange={handleChange}
+                />
+                {errors.release && <p>{errors.release}</p>}
+              </div>
+              <div>
+                <label>Rating </label>
+                <input
+                  type="number"
+                  value={input.rating}
+                  name="rating"
+                  onChange={handleChange}
+                />
+                {errors.rating && <p>{errors.rating}</p>}
+              </div>
+            </div>
+            <div>
+              <div>
+                <select onChange={handleGenre}>
+                  {genres.map((e) => (
+                    <option key={e.name} value={e.name}>
+                      {e.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <li>{input.genres.map((el) => el).join(" - ")}</li>
+              <div>
+                <select onChange={handlePlataforms}>
+                  {platform.map((e) => (
+                    <option key={e} value={e}>
+                      {e}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <li>{input.platforms.map((el) => el).join(" - ")}</li>
+            </div>
           </div>
-        ))}
-        <h2 className="remove-genres-platforms">Remove Genres:</h2>
+          <button type="submit">Create Videogame</button>
+        </form>
+        <br />
+        <br />
+        <div>
+          <h2>Remove Platforms:</h2>
+          {input.platforms.map((el) => (
+            <div key={el}>
+              <button onClick={() => handleDelete(el)}>X</button>
+              <p> {el}</p>
+            </div>
+          ))}
+          <h2>Remove Genres:</h2>
 
-        {input.genres.map((el) => (
-          <div>
-            <button onClick={() => handleDelete(el)}>X</button>
-            <p>{el}</p>
-          </div>
-        ))}
+          {input.genres.map((el) => (
+            <div key={el}>
+              <button onClick={() => handleDelete(el)}>X</button>
+              <p>{el}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

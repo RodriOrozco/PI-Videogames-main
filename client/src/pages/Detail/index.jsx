@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getDetail } from "../../Redux/Actions";
 
-export default function Detail(id) {
+export default function Detail() {
   const dispatch = useDispatch();
-  const id = useParams(id);
+  const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getDetail(id));
+    setTimeout(() => dispatch(getDetail(id)), 3000);
+    return () => dispatch(getDetail());
   }, [dispatch, id]);
 
   const myGame = useSelector((state) => state.detail);
@@ -24,25 +25,23 @@ export default function Detail(id) {
         />
       ) : (
         <div className="detail">
-          <h1>{myGame[0].name}</h1>
+          <h1>{myGame.name}</h1>
           <div className="imagenDetalle">
             <img
               src={
-                myGame[0].image
-                  ? myCharacter[0].img
-                  : "https://i.imgur.com/Xb3J9Cz.png"
+                myGame.image ? myGame.image : "https://i.imgur.com/Xb3J9Cz.png"
               }
               alt=""
-              width="400px"
-              height="550px"
+              height="300px"
+              width="500px"
             />
           </div>
           <div className="subtitle">Rating:</div>
-          <div className="text">{myGame[0].rating}</div>
+          <div className="text">{myGame.rating}</div>
           <div className="subtitle">Released:</div>
-          <div className="text">{myGame[0].released}</div>
+          <div className="text">{myGame.released}</div>
           <div className="subtitle">Description:</div>
-          <div className="text">{myGame[0].description}</div>
+          <div className="text">{myGame.description}</div>
           {/* {!myGame[0].createdInDb ? (
             <div>
               <div className="subtitle">Ocupaciones:</div>
@@ -61,15 +60,11 @@ export default function Detail(id) {
           )} */}
           <div>
             <div className="subtitle">Genres:</div>
-            <div className="text">
-              {myGame[0].genres.map((el) => el.name + " ")}
-            </div>
+            <div className="text">{myGame.genres.map((el) => el + " ")}</div>
           </div>
           <div>
             <div className="subtitle">Platforms:</div>
-            <div className="text">
-              {myGame[0].platforms.map((el) => el.name + " ")}
-            </div>
+            <div className="text">{myGame.platforms.map((el) => el + " ")}</div>
           </div>
         </div>
       )}

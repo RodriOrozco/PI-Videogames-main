@@ -119,61 +119,48 @@ router.get("/", async (req, res) => {
 
 // ------------Hago la ruta GET: '/videogames/:id'
 router.get("/:id", async (req, res) => {
-  const id = req.params.id;
+  // Logica para traer el id
+  const getApiById = async (id) => {
+    const resByID = await axios.get(`https://api.rawg.io/api/games/${id}`, {
+      params: { key: API_KEY },
+    });
+    let response = resByID.data;
+    return {
+      id: response.id,
+      name: response.name,
+      released: response.released,
+      image: response.background_image,
+      rating: response.rating,
+      platforms: response.platforms.map((e) => e.platform.name),
+      genres: response.genres.map((e) => e.name),
+    };
+  };
 
-  const gamesTotal = await getAllInfo();
+  //router----------
+  const { id } = req.params;
 
-  if (id) {
-    const gameId = await gamesTotal.filter((el) => el.id == id);
-    gameId.length
-      ? res.status(200).json(gameId)
-      : res.status(404).send("No se encuentra ese personaje");
+  try {
+    if (!id) {
+      let juegoId = await Videogame.findOne({
+        where: {
+          id,
+        },
+        include: {
+          model: Genre,
+          attributes: ["name"],
+          through: {
+            attributes: [],
+          },
+        },
+      });
+      return res.json(juegoId);
+    }
+
+    let gameId = await getApiById(id);
+    return res.status(200).send(gameId);
+  } catch (e) {
+    res.send("Id no encontrado");
   }
 });
 
 module.exports = router;
-// Logica para traer el id
-// const getApiById = async (id) => {
-//   const resByID = await axios.get(
-//     `https://api.rawg.io/api/games/${id}`, {
-//       params: { key: API_KEY },
-//     }
-//   );
-//   let response = resByID.data;
-//   return {
-//     id: response.id,
-//     name: response.name,
-//     released: response.released,
-//     image: response.background_image,
-//     rating: response.rating,
-//     platforms: response.platforms.map((e) => e.platform.name),
-//     genres: response.genres.map((e) => e.name),
-//   };
-// };
-
-//router----------
-// const { id } = req.params;
-
-// try {
-//   if (!id) {
-//     let juegoId = await Videogame.findOne({
-//       where: {
-//         id,
-//       },
-//       include: {
-//         model: Genre,
-//         attributes: ["name"],
-//         through: {
-//           attributes: [],
-//         },
-//       },
-//     });
-//     return res.json(juegoId);
-//   }
-
-//   let gameId = await getApiById(id);
-//   return res.status(200).send(gameId);
-
-// } catch (e) {
-//   res.send("Id no encontrado");
-// }

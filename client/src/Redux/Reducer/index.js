@@ -12,7 +12,6 @@ import {
 
 const initialState = {
   fullGames: [],
-  platforms: [],
   games: [],
   genres: [],
   detail: [],
@@ -21,14 +20,10 @@ const initialState = {
 const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case GET_GAMES:
-      let platformGame = payload;
-      platformGame.map((el) => el.platforms); //sino probar con un FILTER
-      console.log(`soy platforms bro ${platforms}`);
       return {
         ...state,
         games: payload,
         fullGames: payload,
-        platforms: platformGame,
       };
 
     case SEARCH_BY_NAME:

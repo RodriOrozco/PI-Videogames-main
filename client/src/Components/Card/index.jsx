@@ -5,7 +5,7 @@ function Card({ name, image, id, genres, rating }) {
   return (
     <div>
       <NavLink
-        to={`/game/${id}`}
+        to={`/videogames/${id}`}
         style={{ textDecoration: "none", color: "black" }}
       >
         <h3>{name}</h3>
