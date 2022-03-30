@@ -42,10 +42,12 @@ export default function Home() {
   }
 
   function handleFilterGenres(e) {
+    setCurrentPage(1);
     dispatch(filterByGenres(e.target.value));
   }
 
   function handleFilterCreated(e) {
+    setCurrentPage(1);
     dispatch(filterCreated(e.target.value));
   }
 
@@ -75,16 +77,20 @@ export default function Home() {
       >
         Volver a cargar todos los Juegos
       </button>
-      <SearchBar />
+      <SearchBar setCurrentPage={setCurrentPage} />
       <div className="selects">
         <div>
           <div>
             <label>Filtrar Alfabeticamente</label>
             <select
+              defaultValue="nada"
               onChange={(e) => {
                 handleSortName(e);
               }}
             >
+              <option disabled value="nada">
+                Seleccionar
+              </option>
               <option value="asc">Ascendente</option>
               <option value="desc">Descendente</option>
             </select>
@@ -93,12 +99,14 @@ export default function Home() {
           <div>
             <label>Filtrar por Rating</label>
             <select
-              defaultValue="Select"
               onChange={(e) => {
                 handleSortRating(e);
               }}
+              defaultValue="nada"
             >
-              <option>Select</option>
+              <option disabled value="nada">
+                Seleccionar
+              </option>
               <option value="asc">Ascendente</option>
               <option value="desc">Descendente</option>
             </select>
@@ -107,10 +115,12 @@ export default function Home() {
           <div>
             <label>Filtrar por Creados</label>
             <select
-              defaultValue="Select"
+              defaultValue="nada"
               onChange={(e) => handleFilterCreated(e)}
             >
-              <option>Select</option>
+              <option value="nada" disabled>
+                Seleccionar
+              </option>
               <option value="All">All</option>
               <option value="created">Created</option>
               <option value="api">Apigames</option>
@@ -119,7 +129,10 @@ export default function Home() {
 
           <div>
             <label>Filtrar por Generos</label>
-            <select onChange={handleFilterGenres}>
+            <select onChange={handleFilterGenres} defaultValue="nada">
+              <option disabled value="nada">
+                Seleccionar
+              </option>
               <option value="Action">Action</option>
               <option value="Indie">Indie</option>
               <option value="Strategy">Strategy</option>

@@ -86,14 +86,18 @@ export default function Create() {
   }
 
   function handleSubmit(e) {
-    if (!errors.name && !errors.description && !errors.platforms) {
+    if (
+      input.name.length &&
+      input.description.length &&
+      input.platforms.length
+    ) {
       e.preventDefault();
       dispatch(postGame(input));
       alert("Videojuego Creado!!");
       setInput({
         name: "",
         description: "",
-        img: "",
+        image: "",
         released: "",
         rating: "",
         platforms: [],
@@ -152,7 +156,7 @@ export default function Create() {
                 <label>Image </label>
                 <input
                   type="text"
-                  value={input.img}
+                  value={input.image}
                   name="image"
                   onChange={handleChange}
                 />

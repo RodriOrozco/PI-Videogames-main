@@ -41,7 +41,7 @@ export function getDetail(id) {
   if (id) {
     return async function (dispatch) {
       try {
-        let response = await axios.get(
+        const response = await axios.get(
           `http://localhost:3001/videogames/${id}`
         );
         return dispatch({
@@ -62,7 +62,7 @@ export function getDetail(id) {
 export function getByName(name) {
   return async function (dispatch) {
     try {
-      let response = await axios.get(
+      const response = await axios.get(
         `http://localhost:3001/videogames?name=${name}`
       );
       return dispatch({
@@ -71,6 +71,7 @@ export function getByName(name) {
       });
     } catch (error) {
       console.log(error);
+      console.log("no llega el nombre flaquito");
     }
   };
 }

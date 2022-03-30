@@ -60,7 +60,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         games: payload === "All" ? allGames : createdFilter,
       };
-    //--------------------------------------------------------------------
 
     case FILTER_BY_GENRE:
       const todosVideogames = state.fullGames;
@@ -71,8 +70,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         games: filteredGen,
       };
-
-    //--------------------------------------------------------------------
 
     case FILTER_BY_RATING:
       let sortedRating =

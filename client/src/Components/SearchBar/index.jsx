@@ -5,20 +5,20 @@ import { useDispatch } from "react-redux";
 
 import { getByName } from "../../Redux/Actions";
 
-export default function SearchBar() {
+export default function SearchBar({ setCurrentPage }) {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
 
   function handleInputChange(e) {
     e.preventDefault();
     setName(e.target.value);
-    console.log(name);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(getByName(name));
-    // e.target.reset(setName(""));
+    setCurrentPage(1);
+    setName("");
   }
 
   return (
@@ -28,7 +28,7 @@ export default function SearchBar() {
         id="in"
         type="text"
         placeholder="Escribir..."
-        // value={name}
+        value={name}
         onChange={(e) => handleInputChange(e)}
       />
       <button

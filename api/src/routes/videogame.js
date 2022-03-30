@@ -19,17 +19,17 @@ router.post("/", async (req, res) => {
       where: { name: genres },
     });
 
-    if (genreDb.length != genres.length) {
+    if (genreDb.length !== genres.length) {
       return res.json("Genero no encontrado");
     }
 
     let videogameCreated = await Videogame.create({
       name,
       description,
-      released: released || "No date provided",
+      released: released || "no data provided",
       rating: rating || 0,
       platforms,
-      image,
+      image: image ? image : "https://i.imgur.com/Xb3J9Cz.png", //imagen por defecto
     });
 
     videogameCreated.addGenre(genreDb);
