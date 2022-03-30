@@ -1,15 +1,23 @@
+import "./landing.css";
 import React from "react";
 import { NavLink } from "react-router-dom";
 
 function Landing() {
   return (
-    <div>
+    <div className="contenedor">
       <div>
-        <h1>Welcome to my VIDEOGAMES APP</h1>
-        <NavLink to="/home">
-          <button>Home</button>
-        </NavLink>
+        <img
+          src="https://i.imgur.com/gPv8tec.png"
+          alt="landing photo"
+          width="700px"
+          height="270px"
+          className="logoLand"
+        />
       </div>
+      <br />
+      <NavLink to="/home">
+        <button id="landButton">GO TO HOME</button>
+      </NavLink>
     </div>
   );
 }

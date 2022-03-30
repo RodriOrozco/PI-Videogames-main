@@ -1,4 +1,5 @@
 import React from "react";
+import "./home.css";
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +15,6 @@ import {
 import Card from "../../Components/Card";
 import Pagination from "../../Components/Pagination";
 import SearchBar from "../../Components/SearchBar";
-import Footer from "../../Components/Footer";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -65,97 +65,100 @@ export default function Home() {
 
   return (
     <div>
-      <h1> BEST VIDEOGAMES PAGE </h1>
-      <NavLink to="/create" style={{ textDecoration: "none", color: "black" }}>
-        <h6>Crear Juego!</h6>
-      </NavLink>
+      <div className="navBar">
+        <NavLink to="/" style={{ textDecoration: "none", color: "black" }}>
+          <img src="https://i.imgur.com/OBjeGYI.png" alt="loguito" />
+        </NavLink>
+        <button
+          className="btnI"
+          id="botonIzquierdo"
+          onClick={(e) => {
+            handleClick(e);
+          }}
+        >
+          Recargar Juegos
+        </button>
+        <NavLink
+          to="/create"
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <button className="btnI">Crear Juego!</button>
+        </NavLink>
+        <div className="search">
+          <SearchBar setCurrentPage={setCurrentPage} />
+        </div>
+      </div>
+      <div className="viewport">
+        <div className="custom-select">
+          <select
+            className="select-css"
+            defaultValue="nada"
+            onChange={(e) => {
+              handleSortName(e);
+            }}
+          >
+            <option disabled value="nada">
+              Alfabeticamente
+            </option>
+            <option value="asc">Ascendente</option>
+            <option value="desc">Descendente</option>
+          </select>
 
-      <button
-        onClick={(e) => {
-          handleClick(e);
-        }}
-      >
-        Volver a cargar todos los Juegos
-      </button>
-      <SearchBar setCurrentPage={setCurrentPage} />
-      <div className="selects">
-        <div>
-          <div>
-            <label>Filtrar Alfabeticamente</label>
-            <select
-              defaultValue="nada"
-              onChange={(e) => {
-                handleSortName(e);
-              }}
-            >
-              <option disabled value="nada">
-                Seleccionar
-              </option>
-              <option value="asc">Ascendente</option>
-              <option value="desc">Descendente</option>
-            </select>
-          </div>
+          <select
+            className="select-css"
+            onChange={(e) => {
+              handleSortRating(e);
+            }}
+            defaultValue="nada"
+          >
+            <option disabled value="nada">
+              Rating
+            </option>
+            <option value="asc">Ascendente</option>
+            <option value="desc">Descendente</option>
+          </select>
 
-          <div>
-            <label>Filtrar por Rating</label>
-            <select
-              onChange={(e) => {
-                handleSortRating(e);
-              }}
-              defaultValue="nada"
-            >
-              <option disabled value="nada">
-                Seleccionar
-              </option>
-              <option value="asc">Ascendente</option>
-              <option value="desc">Descendente</option>
-            </select>
-          </div>
+          <select
+            className="select-css"
+            defaultValue="nada"
+            onChange={(e) => handleFilterCreated(e)}
+          >
+            <option value="nada" disabled>
+              Creados
+            </option>
+            <option value="All">All</option>
+            <option value="created">Created</option>
+            <option value="api">Apigames</option>
+          </select>
 
-          <div>
-            <label>Filtrar por Creados</label>
-            <select
-              defaultValue="nada"
-              onChange={(e) => handleFilterCreated(e)}
-            >
-              <option value="nada" disabled>
-                Seleccionar
-              </option>
-              <option value="All">All</option>
-              <option value="created">Created</option>
-              <option value="api">Apigames</option>
-            </select>
-          </div>
-
-          <div>
-            <label>Filtrar por Generos</label>
-            <select onChange={handleFilterGenres} defaultValue="nada">
-              <option disabled value="nada">
-                Seleccionar
-              </option>
-              <option value="Action">Action</option>
-              <option value="Indie">Indie</option>
-              <option value="Strategy">Strategy</option>
-              <option value="Adventure">Adventure</option>
-              <option value="RPG">RPG</option>
-              <option value="Shooter">Shooter</option>
-              <option value="Casual">Casual</option>
-              <option value="Simulation">Simulation</option>
-              <option value="Arcade">Arcade</option>
-              <option value="Puzzle">Puzzle</option>
-              <option value="Platformer">Platformer</option>
-              <option value="Racing">Racing</option>
-              <option value="Massively Multiplayer">
-                Massively Multiplayer
-              </option>
-              <option value="Fighting">Fighting</option>
-              <option value="Sports">Sports</option>
-              <option value="Family">Family</option>
-              <option value="Board Games">Board Games</option>
-              <option value="Educational">Educational</option>
-              <option value="Card">Card</option>
-            </select>
-          </div>
+          <select
+            className="select-css"
+            onChange={handleFilterGenres}
+            defaultValue="nada"
+          >
+            <option disabled value="nada">
+              Generos
+            </option>
+            <option value="Action">Action</option>
+            <option value="Indie">Indie</option>
+            <option value="Strategy">Strategy</option>
+            <option value="Adventure">Adventure</option>
+            <option value="RPG">RPG</option>
+            <option value="Shooter">Shooter</option>
+            <option value="Casual">Casual</option>
+            <option value="Simulation">Simulation</option>
+            <option value="Arcade">Arcade</option>
+            <option value="Puzzle">Puzzle</option>
+            <option value="Platformer">Platformer</option>
+            <option value="Racing">Racing</option>
+            <option value="Massively Multiplayer">Massively Multiplayer</option>
+            <option value="Fighting">Fighting</option>
+            <option value="Sports">Sports</option>
+            <option value="Family">Family</option>
+            <option value="Board Games">Board Games</option>
+            <option value="Educational">Educational</option>
+            <option value="Card">Card</option>
+          </select>
         </div>
 
         <Pagination
@@ -165,27 +168,34 @@ export default function Home() {
         />
 
         <div className="cards">
-          {currentGames?.map((el) => {
-            return (
-              <div key={el.id}>
-                <Card
-                  key={el.id}
-                  id={el.id}
-                  name={el.name}
-                  image={el.image}
-                  rating={el.rating}
-                  genres={
-                    !currentGames[0].createdInDb
-                      ? el.genres
-                      : currentGames[0].genres.map((el) => el.name)
-                  }
-                />
-              </div>
-            );
-          })}
+          {currentGames.length === 0 ? (
+            <img
+              src="https://i.imgur.com/p9dsQtE.gif"
+              alt="Loading..."
+              className="loaderHome"
+            />
+          ) : (
+            currentGames.map((el) => {
+              return (
+                <div key={el.id}>
+                  <Card
+                    key={el.id}
+                    id={el.id}
+                    name={el.name}
+                    image={el.image}
+                    rating={el.rating}
+                    genres={
+                      !currentGames[0].createdInDb
+                        ? el.genres + " "
+                        : currentGames[0].genres.map((el) => el.name)
+                    }
+                  />
+                </div>
+              );
+            })
+          )}
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

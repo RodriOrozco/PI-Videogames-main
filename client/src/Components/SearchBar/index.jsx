@@ -1,4 +1,5 @@
 import React from "react";
+import "./searchBar.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 // import "./searchBar.css";
@@ -22,7 +23,7 @@ export default function SearchBar({ setCurrentPage }) {
   }
 
   return (
-    <div>
+    <div className="busca">
       <input
         className="buscador"
         id="in"
@@ -37,7 +38,7 @@ export default function SearchBar({ setCurrentPage }) {
         type="submit"
         onClick={(e) => handleSubmit(e)}
       >
-        Buscar
+        BUSCAR
       </button>
     </div>
   );

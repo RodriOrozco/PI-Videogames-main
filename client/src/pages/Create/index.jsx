@@ -1,3 +1,4 @@
+import "./create.css";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { postGame, getGenres } from "../../Redux/Actions";
@@ -123,110 +124,117 @@ export default function Create() {
   }, [dispatch]);
 
   return (
-    <div>
-      <Link to="/home">
-        <button>Back</button>
-      </Link>
-      <div>
-        <h1>Create New Videogame</h1>
-        <form onSubmit={(e) => handleSubmit(e)}>
+    <div className="addCharacter">
+      <h1>Create New Videogame</h1>
+      <form onSubmit={(e) => handleSubmit(e)} className="formulario">
+        <div>
           <div>
-            <div>
-              <div>
-                <label>Name </label>
-                <input
-                  type="text"
-                  value={input.name}
-                  name="name"
-                  onChange={handleChange}
-                />
-                {errors.name && <p>{errors.name}</p>}
-              </div>
-              <div>
-                <label>Description </label>
-                <input
-                  type="text"
-                  value={input.description}
-                  name="description"
-                  onChange={handleChange}
-                />
-                {errors.description && <p>{errors.description}</p>}
-              </div>
-              <div>
-                <label>Image </label>
-                <input
-                  type="text"
-                  value={input.image}
-                  name="image"
-                  onChange={handleChange}
-                />
-                {errors.img && <p>{errors.img}</p>}
-              </div>
-              <div>
-                <label>Release Date </label>
-                <input
-                  type="date"
-                  value={input.released}
-                  name="released"
-                  onChange={handleChange}
-                />
-                {errors.release && <p>{errors.release}</p>}
-              </div>
-              <div>
-                <label>Rating </label>
-                <input
-                  type="number"
-                  value={input.rating}
-                  name="rating"
-                  onChange={handleChange}
-                />
-                {errors.rating && <p>{errors.rating}</p>}
-              </div>
+            <div className="form_inputs">
+              <label>Name </label>
+              <input
+                className="inputs"
+                type="text"
+                value={input.name}
+                name="name"
+                onChange={handleChange}
+              />
+              {errors.name && <p>{errors.name}</p>}
             </div>
-            <div>
-              <div>
-                <select onChange={handleGenre}>
-                  {genres.map((e) => (
-                    <option key={e.name} value={e.name}>
-                      {e.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <li>{input.genres.map((el) => el).join(" - ")}</li>
-              <div>
-                <select onChange={handlePlataforms}>
-                  {platform.map((e) => (
-                    <option key={e} value={e}>
-                      {e}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <li>{input.platforms.map((el) => el).join(" - ")}</li>
+            <div className="form_inputs">
+              <label>Description </label>
+              <input
+                className="inputs"
+                type="text"
+                value={input.description}
+                name="description"
+                onChange={handleChange}
+              />
+              {errors.description && <p>{errors.description}</p>}
+            </div>
+            <div className="form_inputs">
+              <label>Image </label>
+              <input
+                className="inputs"
+                type="text"
+                value={input.image}
+                name="image"
+                onChange={handleChange}
+              />
+              {errors.img && <p>{errors.img}</p>}
+            </div>
+            <div className="form_inputs">
+              <label>Release Date </label>
+              <input
+                className="inputs"
+                type="date"
+                value={input.released}
+                name="released"
+                onChange={handleChange}
+              />
+              {errors.release && <p>{errors.release}</p>}
+            </div>
+            <div className="form_inputs">
+              <label>Rating </label>
+              <input
+                className="inputs"
+                type="number"
+                value={input.rating}
+                name="rating"
+                onChange={handleChange}
+              />
+              {errors.rating && <p>{errors.rating}</p>}
             </div>
           </div>
-          <button type="submit">Create Videogame</button>
-        </form>
-        <br />
-        <br />
-        <div>
-          <h2>Remove Platforms:</h2>
-          {input.platforms.map((el) => (
-            <div key={el}>
-              <button onClick={() => handleDelete(el)}>X</button>
-              <p> {el}</p>
+          <div>
+            <div className="custom-select">
+              <select onChange={handleGenre} className="select-css">
+                {genres.map((e) => (
+                  <option key={e.name} value={e.name}>
+                    {e.name}
+                  </option>
+                ))}
+              </select>
             </div>
-          ))}
-          <h2>Remove Genres:</h2>
-
-          {input.genres.map((el) => (
-            <div key={el}>
-              <button onClick={() => handleDelete(el)}>X</button>
-              <p>{el}</p>
+            <li>{input.genres.map((el) => el).join(" - ")}</li>
+            <div className="custom-select">
+              <select onChange={handlePlataforms} className="select-css">
+                {platform.map((e) => (
+                  <option key={e} value={e}>
+                    {e}
+                  </option>
+                ))}
+              </select>
             </div>
-          ))}
+            <li>{input.platforms.map((el) => el).join(" - ")}</li>
+          </div>
         </div>
+        <div id="divButtons">
+          <button type="submit" className="add_button">
+            Create
+          </button>
+          <Link to="/home">
+            <button className="add_button">Back</button>
+          </Link>
+        </div>
+      </form>
+      <br />
+      <br />
+      <div>
+        <h2>Remove Platforms:</h2>
+        {input.platforms.map((el) => (
+          <div key={el}>
+            <button onClick={() => handleDelete(el)}>X</button>
+            <p> {el}</p>
+          </div>
+        ))}
+        <h2>Remove Genres:</h2>
+
+        {input.genres.map((el) => (
+          <div key={el}>
+            <button onClick={() => handleDelete(el)}>X</button>
+            <p>{el}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

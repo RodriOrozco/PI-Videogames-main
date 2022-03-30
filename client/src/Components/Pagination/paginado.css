@@ -17,11 +17,11 @@ ul li a {
   background-color: rgba(0, 0, 0, 0.431);
 }
 
-ul li a.active {
-  background-color: #4caf50;
+ul li a.number {
+  background-color: #a434ff;
   color: white;
 }
 
-ul li a:hover:not(.active) {
-  background-color: rgb(17, 56, 32);
+ul li a:hover:not(.number) {
+  background-color: rgba(80, 0, 155, 0.89);
 }
