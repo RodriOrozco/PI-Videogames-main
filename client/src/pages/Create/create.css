@@ -1,6 +1,6 @@
 .addCharacter {
   display: inline-block;
-  height: 600px;
+  height: 1100px;
   width: 850px;
 
   background-color: white;
@@ -8,13 +8,44 @@
   margin-top: 3%;
   font-weight: bold;
   text-transform: uppercase;
-  color: #f51ab3e7;
+  color: #1af5d1e7;
   border-radius: 20px;
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url("https://i.imgur.com/z8AQmwC.gif");
+    url("https://i.imgur.com/dSIu2Tb.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+li {
+  font-size: 20px;
+}
+.conteiner remove {
+  background-color: #444;
+  justify-content: center;
+  width: 100%;
+}
+.cardRemove {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 100px;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+}
+.cardRemove p {
+  color: #f8f005;
+  font-size: 20px;
+  margin-right: 40px;
+  margin-left: 350px;
+}
+.delete {
+  background-color: #ff013c;
+  color: #00e6f6;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
 }
 
 .formulario {
@@ -39,16 +70,27 @@
   display: flex;
   justify-content: center;
 }
-
+.errorcito {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  background-color: rgba(0, 0, 0, 0.712);
+  border-radius: 10px;
+  margin-top: 37px;
+  color: #ff0000;
+  margin-left: 400px;
+  position: absolute;
+}
 .inputs {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #1af5d1e7;
   width: 300px;
   height: 30px;
   border-radius: 5px;
   font-size: 1.2rem;
   font-weight: bold;
   text-transform: capitalize;
-  border-color: #f51ab3e7;
-  background-color: transparent;
+  border-color: #1af5d1e7;
+  background-color: #b71af52a;
 }
 
 .inputs:hover {
@@ -73,7 +115,6 @@
 }
 
 .add_button {
-  margin-left: 10%;
   margin-right: 10%;
   display: flex;
   flex-direction: column;
@@ -189,10 +230,11 @@ label {
   text-shadow: 1px 1px black;
   font-size: 1.3rem;
   font-weight: bold;
+  margin-bottom: 5px;
 }
 /* ------------------------------------ */
 .custom-select select {
-  margin: 10px;
+  margin: 15px;
   /* padding: 10px 0; */
   width: 187px;
 }

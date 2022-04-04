@@ -18,6 +18,7 @@ import SearchBar from "../../Components/SearchBar";
 
 export default function Home() {
   const dispatch = useDispatch();
+
   // const genres = useSelector((state) => state.genres);
   const fullGames = useSelector((state) => state.games);
   const [order, setOrder] = useState("");
@@ -47,6 +48,7 @@ export default function Home() {
   }
 
   function handleFilterCreated(e) {
+    e.preventDefault();
     setCurrentPage(1);
     dispatch(filterCreated(e.target.value));
   }
@@ -169,11 +171,14 @@ export default function Home() {
 
         <div className="cards">
           {currentGames.length === 0 ? (
-            <img
-              src="https://i.imgur.com/p9dsQtE.gif"
-              alt="Loading..."
-              className="loaderHome"
-            />
+            <div>
+              <h2 className="h2">CARGANDO VIDEOJUEGOS...</h2>
+              <img
+                src="https://i.imgur.com/p9dsQtE.gif"
+                alt="Loading..."
+                className="loaderHome"
+              />
+            </div>
           ) : (
             currentGames.map((el) => {
               return (
@@ -186,8 +191,8 @@ export default function Home() {
                     rating={el.rating}
                     genres={
                       !currentGames[0].createdInDb
-                        ? el.genres + " "
-                        : currentGames[0].genres.map((el) => el.name)
+                        ? el.genres
+                        : currentGames[0].genres.join(" - ")
                     }
                   />
                 </div>

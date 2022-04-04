@@ -18,9 +18,9 @@ function Card({ name, image, id, genres, rating }) {
           width="350px"
         />
       </NavLink>
-      <div className="conteiner">
-        <span>{genres}</span>
-        <span>{rating}</span>
+      <div className="container">
+        <span className="spanCard">{` |${genres}| `}</span>
+        <span className="spanCard">{rating}</span>
       </div>
     </div>
   );

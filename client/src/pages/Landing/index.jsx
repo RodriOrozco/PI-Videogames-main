@@ -8,7 +8,7 @@ function Landing() {
       <div>
         <img
           src="https://i.imgur.com/gPv8tec.png"
-          alt="landing photo"
+          alt=""
           width="700px"
           height="270px"
           className="logoLand"

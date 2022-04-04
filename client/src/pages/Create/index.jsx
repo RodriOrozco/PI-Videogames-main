@@ -20,8 +20,7 @@ function validate(input) {
     errors.release = "Agregar fecha de lanzamiento";
   }
   if (!input.rating || input.rating > 5 || input.rating < 1) {
-    errors.rating =
-      "Rating tiene que ser completado y su valor debe ser entre 1 y 5!";
+    errors.rating = "Rating entre 1 y 5!";
   }
   return errors;
 }
@@ -69,7 +68,6 @@ export default function Create() {
         [e.target.name]: e.target.value,
       })
     );
-    console.log(input);
   }
 
   function handleGenre(e) {
@@ -91,6 +89,8 @@ export default function Create() {
       input.name.length &&
       input.description.length &&
       input.platforms.length
+      // !input.rating > 5 &&
+      // !input.rating < 1
     ) {
       e.preventDefault();
       dispatch(postGame(input));
@@ -138,7 +138,7 @@ export default function Create() {
                 name="name"
                 onChange={handleChange}
               />
-              {errors.name && <p>{errors.name}</p>}
+              {errors.name && <p className="errorcito">{errors.name}</p>}
             </div>
             <div className="form_inputs">
               <label>Description </label>
@@ -149,7 +149,9 @@ export default function Create() {
                 name="description"
                 onChange={handleChange}
               />
-              {errors.description && <p>{errors.description}</p>}
+              {errors.description && (
+                <p className="errorcito">{errors.description}</p>
+              )}
             </div>
             <div className="form_inputs">
               <label>Image </label>
@@ -160,7 +162,7 @@ export default function Create() {
                 name="image"
                 onChange={handleChange}
               />
-              {errors.img && <p>{errors.img}</p>}
+              {errors.img && <p className="errorcito">{errors.img}</p>}
             </div>
             <div className="form_inputs">
               <label>Release Date </label>
@@ -171,7 +173,7 @@ export default function Create() {
                 name="released"
                 onChange={handleChange}
               />
-              {errors.release && <p>{errors.release}</p>}
+              {errors.release && <p className="errorcito">{errors.release}</p>}
             </div>
             <div className="form_inputs">
               <label>Rating </label>
@@ -182,7 +184,7 @@ export default function Create() {
                 name="rating"
                 onChange={handleChange}
               />
-              {errors.rating && <p>{errors.rating}</p>}
+              {errors.rating && <p className="errorcito">{errors.rating}</p>}
             </div>
           </div>
           <div>
@@ -219,20 +221,24 @@ export default function Create() {
       </form>
       <br />
       <br />
-      <div>
+      <div className="conteiner remove">
         <h2>Remove Platforms:</h2>
         {input.platforms.map((el) => (
-          <div key={el}>
-            <button onClick={() => handleDelete(el)}>X</button>
+          <div className="cardRemove" key={el}>
             <p> {el}</p>
+            <button className="delete" onClick={() => handleDelete(el)}>
+              X
+            </button>
           </div>
         ))}
         <h2>Remove Genres:</h2>
 
         {input.genres.map((el) => (
-          <div key={el}>
-            <button onClick={() => handleDelete(el)}>X</button>
+          <div className="cardRemove" key={el}>
             <p>{el}</p>
+            <button className="delete" onClick={() => handleDelete(el)}>
+              X
+            </button>
           </div>
         ))}
       </div>

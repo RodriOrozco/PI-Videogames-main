@@ -41,9 +41,9 @@ const getDBInfo = async () => {
     include: {
       model: Genre,
       attributes: ["name"],
-      through: {
-        attributes: [],
-      },
+      // through: {
+      //   attributes: [],
+      // },
     },
   });
 };
@@ -62,7 +62,7 @@ const getAllInfo = async () => {
       rating: e.dataValues.rating,
       platforms: e.dataValues.platforms,
       image: e.dataValues.image,
-      createInDb: true,
+      createdInDb: true,
       genres: e.dataValues.genres.map((e) => e.dataValues.name),
     };
   });

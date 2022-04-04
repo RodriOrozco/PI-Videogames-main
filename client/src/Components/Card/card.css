@@ -30,7 +30,7 @@
 /* Add some padding inside the card container */
 .container {
   display: flex;
-  padding: 7px 16px;
+  padding: 7px ;
   border-radius: 5px 5px 0 0;
   justify-content: space-between;
 }
