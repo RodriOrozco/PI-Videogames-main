@@ -12,7 +12,7 @@ export const FILTER_BY_RATING = "FILTER_BY_RATING";
 
 export function getGames() {
   return async function (dispatch) {
-    let response = await axios.get("/videogames");
+    let response = await axios.get("/api/videogames");
     return dispatch({
       type: GET_GAMES,
       payload: response.data,
