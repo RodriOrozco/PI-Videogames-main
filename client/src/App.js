@@ -2,9 +2,9 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./Pages/Home/index";
-import Detail from "./Pages/Detail";
-import Create from "./Pages/Create";
-import Landing from "./Pages/Landing";
+import Detail from "./Pages/Detail/index";
+import Create from "./Pages/Create/index";
+import Landing from "./Pages/Landing/index";
 
 function App() {
   return (

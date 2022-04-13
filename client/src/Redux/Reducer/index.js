@@ -8,7 +8,7 @@ import {
   SEARCH_BY_NAME,
   FILTER_BY_GENRE,
   FILTER_BY_RATING,
-} from "../Actions";
+} from "../Actions/index";
 
 const initialState = {
   fullGames: [],

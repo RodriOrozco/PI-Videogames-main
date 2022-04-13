@@ -1,7 +1,7 @@
 import "./create.css";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { postGame, getGenres } from "../../Redux/Actions";
+import { postGame, getGenres } from "../../Redux/Actions/index";
 import { useDispatch, useSelector } from "react-redux";
 
 //formulario validad con Javascript, sistema de errores

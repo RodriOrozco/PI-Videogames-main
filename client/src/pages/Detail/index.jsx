@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import "./detail.css";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetail } from "../../Redux/Actions";
+import { getDetail } from "../../Redux/Actions/index";
 
 export default function Detail() {
   const dispatch = useDispatch();
