@@ -80,11 +80,9 @@ const { Videogame, Genre } = sequelize.models;
 
 Videogame.belongsToMany(Genre, {
   through: "videogames_genres",
-  timestamps: false,
 });
 Genre.belongsToMany(Videogame, {
   through: "videogames_genres",
-  timestamps: false,
 });
 
 module.exports = {
